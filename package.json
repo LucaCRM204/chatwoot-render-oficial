@@ -143,19 +143,11 @@
     "vitest": "3.0.5"
   },
   "engines": {
-    "node": "20.x",
-    "pnpm": "10.x"
+    "node": ">=20.9.0"
   },
   "husky": {
     "hooks": {
       "pre-push": "sh bin/validate_push"
-    }
-  },
-  "pnpm": {
-    "overrides": {
-      "vite-node": "2.0.1",
-      "vite": "5.4.19",
-      "vitest": "3.0.5"
     }
   },
   "lint-staged": {
