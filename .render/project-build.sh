@@ -1,21 +1,13 @@
 #!/usr/bin/env bash
+set -e
 
-corepack enable
-pnpm install --no-frozen-lockfile
+echo "🚀 Paso 1: Compilando SDK de Chatwoot..."
+NODE_OPTIONS=--max-old-space-size=16384 pnpm run build:sdk
+echo "✅ SDK compilado."
 
-# 🧠 Aumenta la memoria disponible para Node.js (16 GB)
-export NODE_OPTIONS="--max-old-space-size=16384"
-
-# 👉 Primero compilamos el SDK (frontend)
-cd app/javascript
-pnpm run build:sdk
-cd ../../
-
-# ✅ Instalamos las gems de Ruby
-bundle config set --local path 'vendor/bundle'
-bundle install --jobs 4 --retry 3
-
-# 👉 Después precompilamos los assets
+echo "🚀 Paso 2: Compilando assets con SECRET_KEY_BASE..."
+SECRET_KEY_BASE=6ee24b067db20b5d9896d6d60159fa8ede75f3a8e343b955f9e77825030d938cb37ef77784c0112ebf918ae13a90e2919f401a6f1eddff52f7210c4901b64fba \
+NODE_OPTIONS=--max-old-space-size=2048 \
 RAILS_ENV=production bundle exec rake assets:precompile
 
-echo "✅ Build terminado correctamente"
+echo "✅ Assets compilados. Build finalizado 🎉"
