@@ -8,8 +8,8 @@ cd app/javascript
 pnpm run build:sdk
 cd ../../
 
-# ✅ Aumenta la memoria disponible para Node.js (2 GB)
-export NODE_OPTIONS="--max-old-space-size=2048"
+# ✅ Aumenta la memoria disponible para Node.js (6 GB)
+export NODE_OPTIONS="--max-old-space-size=6144"
 
 # ✅ Instala las gems correctamente
 bundle config set --local path 'vendor/bundle'
