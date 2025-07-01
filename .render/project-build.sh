@@ -4,7 +4,7 @@ corepack enable
 
 pnpm install --no-frozen-lockfile
 
-# ⚠ Omitimos build del SDK para evitar consumo excesivo de RAM
+# 🚫 Saltamos la compilación del SDK para evitar errores de memoria
 # cd app/javascript
 # NODE_OPTIONS="--max-old-space-size=8192" pnpm run build:sdk
 # cd ../../
