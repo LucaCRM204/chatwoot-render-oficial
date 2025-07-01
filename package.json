@@ -12,7 +12,7 @@
     "start:test": "RAILS_ENV=test foreman start -f ./Procfile.test",
     "dev": "overmind start -f ./Procfile.dev",
     "ruby:prettier": "bundle exec rubocop -a",
-    "build:sdk": "BUILD_MODE=library vite build",
+    "build:sdk": "cross-env BUILD_MODE=library vite build",
     "prepare": "husky install",
     "size": "size-limit",
     "story:dev": "histoire dev",
@@ -118,6 +118,7 @@
     "@vitest/coverage-v8": "3.0.5",
     "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-prettier": "^9.1.0",
@@ -167,5 +168,6 @@
     "*.scss": [
       "scss-lint"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.2.0+sha512.0d27364e0139c6aadeed65ada153135e0ca96c8da42123bd50047f961339dc7a758fc2e944b428f52be570d1bd3372455c1c65fa2e7aa0bfbf931190f9552001"
 }
