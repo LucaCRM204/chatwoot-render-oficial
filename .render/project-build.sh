@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
-set -o errexit
 
-echo "📦 Instalando dependencias Ruby..."
-bundle install
+corepack enable
 
-echo "📦 Instalando dependencias Node..."
-yarn install
+pnpm install --no-frozen-lockfile
 
-echo "🚀 Precompilando assets..."
-bundle exec rails assets:precompile
+cd app/javascript
 
-echo "✅ Build completo"
+pnpm run build:sdk
+
+cd ../../
+
+RAILS_ENV=production bundle exec rake assets:precompile
+
+echo "✅ Build terminado correctamente"
