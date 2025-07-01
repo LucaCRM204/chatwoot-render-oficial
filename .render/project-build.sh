@@ -1,19 +1,16 @@
 #!/usr/bin/env bash
+set -e
 
-corepack enable
+echo "==> Instalando dependencias Node..."
+pnpm install
 
-pnpm install --no-frozen-lockfile
+echo "==> Step 1: Build del SDK con Node 18 y 16 GB RAM"
+NODE_OPTIONS="--max-old-space-size=16384" pnpm run build:sdk
 
-# 🚫 Saltamos la compilación del SDK para evitar errores de memoria
-# cd app/javascript
-# NODE_OPTIONS="--max-old-space-size=8192" pnpm run build:sdk
-# cd ../../
+echo "==> Step 2: Precompilando assets (Rails)"
+NODE_OPTIONS="--max-old-space-size=8192" bundle exec rake assets:precompile
 
-# ✅ Instala las gems necesarias
-bundle config set --local path 'vendor/bundle'
-bundle install --jobs 4 --retry 3
+echo "==> Step 3: Migraciones de base de datos"
+bundle exec rake db:prepare
 
-# ✅ Precompila assets (esto sí es necesario)
-RAILS_ENV=production bundle exec rake assets:precompile
-
-echo "✅ Build terminado correctamente"
+echo "==> Build completo exitoso 🎉"
