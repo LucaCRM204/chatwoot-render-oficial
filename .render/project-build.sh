@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 
+# ✅ Habilita Corepack y PNPM
 corepack enable
 
+# ✅ Instala dependencias JS
 pnpm install --no-frozen-lockfile
 
-cd app/javascript
-
-# Aumenta la memoria disponible para Node.js (20 GB)
-export NODE_OPTIONS="--max-old-space-size=20144"
-pnpm run build:sdk
-
-cd ../../
-
-# Instala las gems correctamente
+# ✅ Instala dependencias Ruby
 bundle config set --local path 'vendor/bundle'
 bundle install --jobs 4 --retry 3
 
-# Precompila assets después de tener todo instalado
+# ✅ Compila el SDK con más memoria
+export NODE_OPTIONS="--max-old-space-size=16384"
+cd app/javascript
+pnpm run build:sdk
+cd ../../
+
+# ✅ Precompila los assets (esto ya no ejecuta build:sdk, solo empaqueta lo compilado)
 RAILS_ENV=production bundle exec rake assets:precompile
 
-echo "✅ Build terminado correctamente"
+echo "✅ Build completo sin errores"
